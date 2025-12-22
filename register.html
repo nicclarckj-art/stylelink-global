@@ -14,7 +14,7 @@
     }
 
     header {
-      padding: 16px 20px;
+      padding: 16px;
       border-bottom: 1px solid #eee;
     }
 
@@ -27,7 +27,7 @@
     .container {
       max-width: 500px;
       margin: 40px auto;
-      padding: 0 20px;
+      padding: 20px;
     }
 
     h2 {
@@ -44,12 +44,14 @@
     form {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
     input, select, button {
-      padding: 12px;
+      padding: 14px;
       font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
 
     button {
@@ -67,6 +69,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <header>
@@ -77,5 +80,26 @@
   <h2>Register as a Professional</h2>
   <p>Join StyleLink Global and get discovered by clients near you</p>
 
-  <!-- Netlify Form -->
-  <form name="professional-registration" method="POST" data-net
+  <form>
+    <input type="text" placeholder="Full Name or Business Name" required>
+    <input type="tel" placeholder="Phone Number" required>
+    <input type="text" placeholder="City / Area" required>
+
+    <select required>
+      <option value="">Select your service</option>
+      <option>Barber</option>
+      <option>Salon</option>
+      <option>Spa</option>
+      <option>Massage Therapist</option>
+    </select>
+
+    <button type="submit">Submit Registration</button>
+  </form>
+</div>
+
+<footer>
+  © 2025 StyleLink Global
+</footer>
+
+</body>
+</html>
