@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register as Professional | StyleLink Global</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register as a Professional | StyleLink Global</title>
 
   <style>
     body {
@@ -14,7 +14,7 @@
     }
 
     header {
-      padding: 16px;
+      padding: 16px 20px;
       border-bottom: 1px solid #eee;
     }
 
@@ -27,38 +27,40 @@
     .container {
       max-width: 500px;
       margin: 40px auto;
-      padding: 20px;
+      padding: 0 20px;
     }
 
     h2 {
-      text-align: center;
       margin-bottom: 10px;
     }
 
     p {
-      text-align: center;
       color: #555;
       margin-bottom: 30px;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    input, select, button {
+    input, select {
+      width: 100%;
       padding: 14px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
       font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
     }
 
     button {
+      width: 100%;
+      padding: 14px;
       background: #111;
       color: #fff;
       border: none;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
+    }
+
+    button:hover {
+      background: #000;
     }
 
     footer {
@@ -72,34 +74,73 @@
 
 <body>
 
-<header>
-  <a href="index.html">← Back to Home</a>
-</header>
+  <header>
+    <a href="index.html">← Back to Home</a>
+  </header>
 
-<div class="container">
-  <h2>Register as a Professional</h2>
-  <p>Join StyleLink Global and get discovered by clients near you</p>
+  <div class="container">
+    <h2>Register as a Professional</h2>
+    <p>Join StyleLink Global and get discovered by clients near you</p>
 
-  <form action="https://forms.gle/KhNg6K1TUWZt2df77" method="GET" target="_blank">
-    <input type="text" placeholder="Full Name or Business Name" required>
-    <input type="tel" placeholder="Phone Number" required>
-    <input type="text" placeholder="City / Area" required>
+    <form id="registerForm">
+      <input type="text" placeholder="Full Name or Business Name" required />
+      <input type="tel" placeholder="Phone Number" required />
+      <input type="text" placeholder="City / Area" required />
 
-    <select required>
-      <option value="">Select your service</option>
-      <option>Barber</option>
-      <option>Salon</option>
-      <option>Spa</option>
-      <option>Massage Therapist</option>
-    </select>
+      <select required>
+        <option value="">Select your service</option>
+        <option>Barber</option>
+        <option>Salon</option>
+        <option>Spa</option>
+        <option>Massage Therapist</option>
+      </select>
 
-    <button type="submit">Submit Registration</button>
-  </form>
-</div>
+      <button type="submit">Submit Registration</button>
+    </form>
+  </div>
 
-<footer>
-  © 2025 StyleLink Global
-</footer>
+  <footer>
+    © 2025 StyleLink Global
+  </footer>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = "https://jynctfmghxazxvovaohl.supabase.co";
+    const supabaseKey = "PASTE_YOUR_ANON_KEY_HERE";eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5bmN0Zm1naHhhenh2b3Zhb2hsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY0NDMwNDAsImV4cCI6MjA4MjAxOTA0MH0.2_sNnjCoii3xv4ODIGoDI9sU__YSTAcMckS9OVLBo9w
+
+    const supabase = window.supabase.createClient(
+      supabaseUrl,
+      supabaseKey
+    );
+
+    document
+      .getElementById("registerForm")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const inputs = e.target.querySelectorAll("input, select");
+
+        const full_name = inputs[0].value;
+        const phone = inputs[1].value;
+        const city = inputs[2].value;
+        const service = inputs[3].value;
+
+        const { error } = await supabase
+          .from("professionals")
+          .insert([
+            { full_name, phone, city, service }
+          ]);
+
+        if (error) {
+          alert("❌ Error: " + error.message);
+          console.error(error);
+        } else {
+          alert("✅ Registration successful!");
+          e.target.reset();
+        }
+      });
+  </script>
 
 </body>
 </html>
